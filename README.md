@@ -120,6 +120,88 @@ resource "aws_nat_gateway" "ngw" {
   }
 }
 
+route table
+create aws route table using terraform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_security_group" "sg" {
+  name        = "first-SG"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description      = "TLS from VPC"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = [aws_vpc.vpc.cidr_block]
+    ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "SG"
+  }
+}
+
+
+resource "aws_route_table_association" "as_1" {
+  subnet_id      = aws_subnet.pub.id
+  route_table_id = aws_route_table.rt1.id
+}
+
+
+resource "aws_route_table_association" "as_2" {
+  subnet_id      = aws_subnet.pri.id
+  route_table_id = aws_route_table.rt2.id
+}
+
+cdrive folder path copy open to power shell
+
+terraform init(total vpc provider)
+terraform validate(the configuration valid)
+floder create aws all plugins information
+terraform plan(11 to add resources)
+terraform apply (create a vpc)
+go to aws account vpc create :demo-vpc
+subnet public
+private
+all resources created
+(actions click and dns hostnames dns enable and support)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
